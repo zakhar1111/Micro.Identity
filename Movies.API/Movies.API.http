@@ -1,6 +1,40 @@
-@Movies.API_HostAddress = http://localhost:5035
+@hostname = localhost
+@port = 5035
+@Movies.API_HostAddress = http://{{hostname}}:{{port}}/api
+@testMovieId=9
 
-GET {{Movies.API_HostAddress}}/hi/
+GET {{Movies.API_HostAddress}}/Movies
 Accept: application/json
 
 ###
+
+GET {{Movies.API_HostAddress}}/Movies/{{testMovieId}}
+Accept: application/json
+
+###
+
+POST {{Movies.API_HostAddress}}/Movies
+Content-Type: application/json
+
+{
+  "title": "Fifth Element",
+  "genre": "Drama",
+  "rating": "8.1",
+  "releaseDate": "1999-05-05T00:00:00",
+  "imageUrl": "images/src",
+  "owner": "bob"
+}
+
+###
+
+PUT {{Movies.API_HostAddress}}/Movies/{{testMovieId}}
+Content-Type: application/json
+
+{
+  "id": {{testMovieId}}
+  "title": "Fifth Element !!!!!!!!?????????????",
+}
+
+###
+DELETE {{Movies.API_HostAddress}}/Movies/{{testMovieId}}
+Accept: application/json
