@@ -1,6 +1,6 @@
 @hostname = localhost
-@port = 5035
-@Movies.API_HostAddress = http://{{hostname}}:{{port}}/api
+@port = 7031
+@Movies.API_HostAddress = https://{{hostname}}:{{port}}/api
 @testMovieId=9
 
 GET {{Movies.API_HostAddress}}/Movies
