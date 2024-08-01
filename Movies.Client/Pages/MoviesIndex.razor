@@ -1,0 +1,43 @@
+﻿@page "/moviesindex"
+@using Movies.Client.Models
+
+<h1>Movies</h1>
+
+<p>
+    <a href="/create">Create New</a>
+</p>
+
+@if (movies == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Release Date</th>
+                <th>Owner</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in movies)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Genre</td>
+                    <td>@item.ReleaseDate.ToShortDateString()</td>
+                    <td>@item.Owner</td>
+                    <td>
+                        <a href="/edit/@item.Id">Edit</a> |
+                        <a href="/details/@item.Id">Details</a> |
+                        <a href="/delete/@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
