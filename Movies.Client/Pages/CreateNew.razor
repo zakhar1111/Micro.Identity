@@ -1,0 +1,47 @@
+﻿@page "/createnew"
+@using Movies.Client.Models
+
+<h1>Create</h1>
+
+<h4>Movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="movie" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="Title" class="control-label">Title</label>
+                <InputText id="Title" class="form-control" @bind-Value="movie.Title" />
+                <ValidationMessage For="@(() => movie.Title)" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label for="Genre" class="control-label">Genre</label>
+                <InputText id="Genre" class="form-control" @bind-Value="movie.Genre" />
+                <ValidationMessage For="@(() => movie.Genre)" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label for="ReleaseDate" class="control-label">Release Date</label>
+                <InputDate id="ReleaseDate" class="form-control" @bind-Value="movie.ReleaseDate" />
+                <ValidationMessage For="@(() => movie.ReleaseDate)" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label for="Owner" class="control-label">Owner</label>
+                <InputText id="Owner" class="form-control" @bind-Value="movie.Owner" />
+                <ValidationMessage For="@(() => movie.Owner)" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/moviesindex">Back to List</a>
+</div>
