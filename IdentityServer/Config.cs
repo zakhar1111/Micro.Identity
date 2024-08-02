@@ -23,7 +23,7 @@ public class Config
         {
                 new ApiResource("MoviesAPI")
                 {
-                    Scopes = new List<string> { "MoviessAPI.read", "MoviesAPI.write" },
+                    Scopes = new List<string> { "MoviesAPI.read", "MoviesAPI.write" },
                     ApiSecrets = new List<Secret> { new Secret("ScopeSecret".Sha256()) },
                     UserClaims = new List<string> { "role" }
                 }
