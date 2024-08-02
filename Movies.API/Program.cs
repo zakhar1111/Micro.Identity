@@ -1,5 +1,7 @@
 using Carter;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Movies.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,28 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCarter();
+
+builder.Services.AddAuthentication("Bearer")
+    .AddIdentityServerAuthentication("Bearer", options =>
+    {
+        options.Authority = "https://localhost:7187";
+        options.ApiName = "MoviesAPI";
+        options.RequireHttpsMetadata = false;
+    });
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ApiScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "MoviesAPI.read");
+    });
+});
+
+
+
+
 builder.Services.AddDbContext<MoviesContext>(opt => opt.UseInMemoryDatabase("MoviesDb"));
 
 var app = builder.Build();
@@ -27,6 +51,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapCarter();
 app.UseHttpsRedirection();

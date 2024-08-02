@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Carter" Version="8.2.1" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
