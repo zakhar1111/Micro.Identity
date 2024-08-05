@@ -1,5 +1,6 @@
 ﻿@page "/movieedit/{Id:int}"
 @using Movies.Client.Models
+@attribute [Authorize]
 
 <h1>Edit</h1>
 
@@ -37,11 +38,14 @@
                 <ValidationMessage For="@(() => movie.Owner)" class="text-danger" />
             </div>
 
+
+            <div>
+                <button type="submit" class="btn btn-primary">Save</button> |
+            </div>
         </EditForm>
     </div>
 </div>
 
 <div>
-    <button type="submit" class="btn btn-primary">Save</button> |
     <a href="/moviesindex">Back to List</a>
 </div>
