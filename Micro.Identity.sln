@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SecureResources", "SecureRe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.API", "Movies.API\Movies.API.csproj", "{1C11C050-9F69-4DEC-8F1A-005A22DEB18B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{686BB44A-0D80-4AA5-9440-0528AF071D6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{686BB44A-0D80-4AA5-9440-0528AF071D6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Client", "Movies.Client\Movies.Client.csproj", "{7D060A33-7848-43E0-BA31-28CBAFC1E547}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Client", "Movies.Client\Movies.Client.csproj", "{7D060A33-7848-43E0-BA31-28CBAFC1E547}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
