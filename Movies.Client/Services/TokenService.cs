@@ -7,13 +7,16 @@ public class TokenService : ITokenService
 {
     public readonly IOptions<IdentityServerSettings> identityServerSettings;
     public readonly DiscoveryDocumentResponse discoveryDocument;
-    private readonly HttpClient httpClient;
+    private readonly IHttpClientFactory httpClient;
 
-    public TokenService(IOptions<IdentityServerSettings> identityServerSettings)
+    public TokenService(IOptions<IdentityServerSettings> identityServerSettings, 
+        IHttpClientFactory httpClient)
     {
         this.identityServerSettings = identityServerSettings;
-        httpClient = new HttpClient();
-        discoveryDocument = httpClient.GetDiscoveryDocumentAsync(this.identityServerSettings.Value.DiscoveryUrl).Result;
+        this.httpClient = httpClient;
+
+        var client = httpClient.CreateClient();
+        discoveryDocument = client.GetDiscoveryDocumentAsync(this.identityServerSettings.Value.DiscoveryUrl).Result;
 
         if (discoveryDocument.IsError)
         {
@@ -23,7 +26,8 @@ public class TokenService : ITokenService
 
     public async Task<TokenResponse> GetToken(string scope)
     {
-        var tokenResponse = await httpClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+        var client = httpClient.CreateClient();
+        var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
         {
             Address = discoveryDocument.TokenEndpoint,
             ClientId = identityServerSettings.Value.ClientName,
