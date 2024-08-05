@@ -8,6 +8,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text;
 using System.Threading.Tasks;
+using Movies.Client.Services;
+using System.Net.Http.Headers;
 
 
 namespace Movies.Client.Pages;
@@ -22,9 +24,17 @@ public partial class MovieDelete : ComponentBase
     [Inject] private IHttpClientFactory httpClientFactory { get; set; }
     [Inject] private IConfiguration Config { get; set; }
 
+    [Inject] private ITokenService TokenService { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         var client = httpClientFactory.CreateClient();
+
+        //bearer token
+        var tokenResponse = await TokenService.GetToken("MoviesAPI.read");
+        //client.SetBearerToken(tokenResponse.AccessToken);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResponse.AccessToken);
+
         var apiUrl = Config["apiUrl"];
 
         var result = await client.GetAsync($"{apiUrl}/api/Movies/{Id}");
@@ -37,6 +47,12 @@ public partial class MovieDelete : ComponentBase
     private async Task DeleteMovie()
     {
         var client = httpClientFactory.CreateClient();
+
+        //bearer token
+        var tokenResponse = await TokenService.GetToken("MoviesAPI.read");
+        //client.SetBearerToken(tokenResponse.AccessToken);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResponse.AccessToken);
+
         var apiUrl = Config["apiUrl"];
 
         movie.Id = this.Id;

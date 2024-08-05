@@ -26,8 +26,8 @@ public partial class MoviesIndex : ComponentBase
 
         //bearer token
         var tokenResponse = await TokenService.GetToken("MoviesAPI.read");
-        client.SetBearerToken(tokenResponse.AccessToken);
-        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResponse.AccessToken);
+        //client.SetBearerToken(tokenResponse.AccessToken);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResponse.AccessToken);
 
         var apiUrl = Config["apiUrl"];
         var result = await client.GetAsync($"{apiUrl}/api/Movies");
