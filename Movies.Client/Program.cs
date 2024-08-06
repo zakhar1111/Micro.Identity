@@ -14,6 +14,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.Configure<IdentityServerSettings>(builder.Configuration.GetSection("IdentityServerSettings"));
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IMovieApiService, MovieService>();
 
 builder.Services.AddAuthentication(options =>
 {
