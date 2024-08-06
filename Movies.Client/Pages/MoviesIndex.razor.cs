@@ -12,28 +12,13 @@ using System.Threading.Tasks;
 
 namespace Movies.Client.Pages;
 
+
 public partial class MoviesIndex : ComponentBase
 {
     private IEnumerable<Movie> movies;
-    [Inject] private IHttpClientFactory httpClientFactory { get; set; }
-    [Inject] private IConfiguration Config { get; set; }
-    [Inject] private ITokenService TokenService { get; set; }
 
+    [Inject] private IMovieApiService MovieService { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        var client = httpClientFactory.CreateClient();
-
-        //bearer token
-        var tokenResponse = await TokenService.GetToken("MoviesAPI.read");
-        //client.SetBearerToken(tokenResponse.AccessToken);
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResponse.AccessToken);
-
-        var apiUrl = Config["apiUrl"];
-        var result = await client.GetAsync($"{apiUrl}/api/Movies");
-        result.EnsureSuccessStatusCode();
-
-        movies = await result.Content.ReadFromJsonAsync<IEnumerable<Movie>>();
-
-    }
+    protected override async Task OnInitializedAsync() =>
+        movies = await MovieService.GetMoviesAsync();
 }
