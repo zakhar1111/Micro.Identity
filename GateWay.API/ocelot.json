@@ -9,8 +9,28 @@
           "Port": 7031
         }
       ],
-      "UpstreamPathTemplate": "/moviesindex",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamPathTemplate": "/api/Movies",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "MoviesAPI.read" ]
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Movies/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7031
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Movies/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "MoviesAPI.read" ]
+      }
     }
   ],
   "GlobalConfiguration": {
