@@ -11,6 +11,8 @@ public class MovieService : IMovieApiService
     private readonly IConfiguration _config;
     private readonly ITokenService _tokenService;
 
+    private readonly string _apiName = $"/api/Movies"; 
+
     public MovieService(IHttpClientFactory httpClientFactory, IConfiguration config, ITokenService tokenService)
     {
         _httpClientFactory = httpClientFactory;
@@ -34,7 +36,7 @@ public class MovieService : IMovieApiService
     {
         var client = await CreateClientWithTokenAsync("MoviesAPI.read");
         var apiUrl = _config["apiUrl"];
-        var response = await client.GetAsync($"{apiUrl}/api/Movies");
+        var response = await client.GetAsync($"{apiUrl}{_apiName}");
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<IEnumerable<Movie>>();
     }
@@ -43,7 +45,7 @@ public class MovieService : IMovieApiService
     {
         var client = await CreateClientWithTokenAsync("MoviesAPI.read");
         var apiUrl = _config["apiUrl"];
-        var response = await client.GetAsync($"{apiUrl}/api/Movies/{id}");
+        var response = await client.GetAsync($"{apiUrl}{_apiName}/{id}");
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<Movie>();
     }
@@ -52,7 +54,7 @@ public class MovieService : IMovieApiService
     {
         var client = await CreateClientWithTokenAsync("MoviesAPI.read");
         var apiUrl = _config["apiUrl"];
-        var response = await client.DeleteAsync($"{apiUrl}/api/Movies/{id}");
+        var response = await client.DeleteAsync($"{apiUrl}{_apiName}/{id}");
         response.EnsureSuccessStatusCode();
     }
 
@@ -61,7 +63,7 @@ public class MovieService : IMovieApiService
         var client = await CreateClientWithTokenAsync("MoviesAPI.read");
         var apiUrl = _config["apiUrl"];
         var jsonMovie = new StringContent(JsonSerializer.Serialize(movie), Encoding.UTF8, "application/json");
-        var response = await client.PostAsync($"{apiUrl}/api/Movies", jsonMovie);
+        var response = await client.PostAsync($"{apiUrl}{_apiName}", jsonMovie);
         response.EnsureSuccessStatusCode();
     }
 
@@ -71,7 +73,7 @@ public class MovieService : IMovieApiService
         var apiUrl = _config["apiUrl"];
 
         var jsonMovie = new StringContent(JsonSerializer.Serialize(movie), Encoding.UTF8, "application/json");
-        var response = await client.PutAsync($"{apiUrl}/api/Movies/{id}", jsonMovie);
+        var response = await client.PutAsync($"{apiUrl}{_apiName}/{id}", jsonMovie);
         response.EnsureSuccessStatusCode();
     }
 
